@@ -101,4 +101,25 @@ exports.delete = (req,res) =>{
   });
 
 };
+//delete all objects
+exports.deleteAll = (req,res) =>{
+  Tutorial.deleteMany({})
+  .then(data =>{
+    res.send({message:"All tutorials were deleted"})
+  })
+  .catch(error =>{
+    res.status(500).send({message:"some error occured while removing the items"});
+  });
+};
+
+//find all objects by conditions
+exports.findAllPublished = (req,res) =>{
+  Tutorial.find({published:true})
+  .then(data =>{
+    res.send(data)
+  })
+  .catch(error =>{
+    res.status(500).send({message:"Unable to retieve data"})
+  })
+}
 
