@@ -83,4 +83,22 @@ Tutorial.findByIdAndUpdate(id,req.body,{ useFindAndModify: false })
 })
 }
 
+//delete a single object
+exports.delete = (req,res) =>{
+  const id = req.params.id;
+
+  Tutorial.findByIdAndRemove(id)
+  .then(data =>{
+    if(!data){
+      res.status(400).send({message:`Cannot delete Tutorial with id=${id}. Maybe Tutorial was not found!`})
+    }
+    else{
+      res.send({message:"Tutorial deleted successfully"})
+    }
+  })
+  .catch(error =>{
+    res.status(500).send({message: "Could not delete Tutorial with id=" + id})
+  });
+
+};
 
